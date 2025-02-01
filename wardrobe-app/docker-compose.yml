@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend  # Ensure this is correct
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/wardrobe
+      - JWT_SECRET=mysecretkey
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app  # Ensure backend folder is correctly mapped
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
